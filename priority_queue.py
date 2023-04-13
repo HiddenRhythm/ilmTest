@@ -42,9 +42,12 @@ class PriorityQueue:
                 "priority" not in priority_command_dict.keys():
             raise KeyError('Could not find "command" or "priority" as keys:', priority_command_dict)
     
-        # use the item's priority
-        # ensure priority is between 0 and 10
+        # use the item's priority        
         priority = priority_command_dict['priority']
+        # ensure the priority is an integer
+        if not isinstance(priority, int):
+            raise TypeError('Priority is not an integer:', priority_command_dict)
+        # ensure priority is between 0 and 10
         if priority < 0:
             priority = 0
         elif priority > 10:
@@ -95,6 +98,7 @@ def do_test():
     
     p = PriorityQueue()
     #p.push({'command': 'commandA', 'pri': 1})  # error no 'priority' key
+    #p.push({'command': 'commandA', 'priority': 1.5}) # error not an integer
     p.push({'command': 'commandA', 'priority': 1})
     p.push({'command': 'commandB', 'priority': 5})
     p.push({'command': 'commandC', 'priority': 8})
